@@ -1,0 +1,16 @@
+@ x, i;
+
+write("Insira a sequência de números naturais\n");
+x = read();
+
+while(x != -1) {
+    if(x mod 2 == 1) {
+        $ i = i + 1;
+        write("Número ímpar ");
+        write(x);
+    }
+    x = read();
+}
+
+write("Números ímpares encontrados: ");
+write(i);

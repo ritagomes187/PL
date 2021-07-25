@@ -1,0 +1,14 @@
+@ N;
+@ i, menor, atual;
+
+N = read();
+
+while(i<N) { 
+    atual = read() ; 
+    if(atual < menor) {
+        $ menor = atual;
+    } 
+    $ i = i+1;
+}
+
+write(menor);

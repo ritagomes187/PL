@@ -1,0 +1,73 @@
+comandos : comandos comando
+         | comando
+         | €
+
+comando : '@' declaracoes ';'
+        | atribuicao ';'
+        | WRITE '(' text ')' ';'
+        | variavel '=' READ '(' ')' ';'
+        | variavel '[' INT ']' '=' READ '(' ')' ';'# ACRESCENTATED
+        | READ '(' ')' ';'
+        | IF '(' condicoes ')' '{' comandos '}'
+        | IF '(' condicoes ')' '{' comandos '}' ELSE '{' comandos '}'
+        | REPEAT '{' comandos '}' UNTIL '(' condicoes ')'
+        | WHILE '(' condicoes ')' '{' comandos '}'
+        | DO '{' comandos '}' WHILE '(' condicoes ')'
+
+declaracoes : declaracoes ',' declaracao // a, b
+            | declaracao                 // a 
+
+declaracao : variavel '=' INT       // a = 1
+           | variavel               // a
+           | variavel '[' INT ']'   // a[5]
+           | variavel '[' INT ']' '=' '{' inteiros '}'  // a[2] = {1,2}
+
+atribuicao : variavel '=' expressao
+           | variavel '[' INT ']' '=' expressao
+
+expressao : expressao '+' termo
+          | expressao '-' termo
+          | termo
+
+termo : termo '*' variavel
+      | termo '/' variavel
+      | termo '*' variavel '[' INT ']'
+      | termo '/' variavel '[' INT ']'
+      | termo '*' INT
+      | termo '/' INT
+      | termo MOD variavel
+      | termo MOD variavel '[' INT ']'
+      | termo MOD INT
+      | fator
+
+fator : INT
+      |'(' expressao ')'
+      | variavel
+      | variavel '[' INT ']'
+      | STRING
+
+text : comando 
+     | variavel
+     | variavel '[' INT ']'
+     | STRING
+     | €
+
+condicoes : condicoes '&' condicao
+          | condicoes '|' condicao
+          | condicao 
+
+condicao : variavel simbolo expressao
+         | variavel '[' INT ']' simbolo expressao
+         | expressao simbolo expressao
+
+inteiros : inteiros ',' INT
+         | INT
+
+simbolo : GEQ
+        | LEQ
+        | GREATER
+        | LESSER
+        | EQUAL
+        | DIFF
+
+variavel : LETRA
